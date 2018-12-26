@@ -14,4 +14,5 @@ This example is an illustration of the <a href="https://www.devexpress.com/Suppo
 
 <br/>
 
-
+Note that starting with v15.1, our callback-aware extensions automatically collect values of nested input elements and send them through a callback.
+So, it is no longer necessary to pass RequestVerificationToken as custom request data by handling the client-side BeginCallback event if AntiForgeryToken is rendered within extensions boundaries (for example, as a part of any template, etc.)
