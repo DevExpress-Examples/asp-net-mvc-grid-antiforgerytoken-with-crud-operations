@@ -5,7 +5,7 @@
 
 # Grid for ASP.NET MVC - How to use AntiForgeryToken with CRUD operations
 
-The [Html.AntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.htmlhelper.antiforgerytoken) method generates a hidden form field (anti-forgery token) that can be validated when the form is submitted. Call this method inside a DevExpress callback-aware extension to automatically send the token value through an extension callback.
+The [Html.AntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.htmlhelper.antiforgerytoken) method generates a hidden form field (anti-forgery token) that can be validated when the form is submitted. Call this method inside a DevExpress callback-aware extension to automatically send the token value with an extension callback.
 
 ## Implementation Details
 
@@ -19,7 +19,7 @@ In this example, the `Html.AntiForgeryToken` method is called in a [SetHeaderCap
         ViewContext.Writer.Write("#");  
     });  
 ```
-During CRUD operations, the grid sends the token through a callback. To check the value on the server, decorate the action method with the [ValidateAntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.validateantiforgerytokenattribute) attribute.
+During CRUD operations, the grid sends the token with a callback. To check the value on the server, decorate the action method with the [ValidateAntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.validateantiforgerytokenattribute) attribute.
 
 ```scharp
 [ValidateAntiForgeryToken]  
