@@ -13,15 +13,12 @@
     settings.CommandColumn.ShowNewButton = true;
     settings.CommandColumn.ShowDeleteButton = true;
 
-	settings.CommandColumn.SetHeaderCaptionTemplateContent(c => {
-		ViewContext.Writer.Write(Html.AntiForgeryToken().ToHtmlString());
-		ViewContext.Writer.Write("#");
-	});
-
-    settings.Columns.Add(column => {
-        column.FieldName = "ProductID";
+    settings.CommandColumn.SetHeaderCaptionTemplateContent(c => {
+        ViewContext.Writer.Write(Html.AntiForgeryToken().ToHtmlString());
+        ViewContext.Writer.Write("#");
     });
 
+    settings.Columns.Add("ProductID");
     settings.Columns.Add("ProductName");
     settings.Columns.Add("UnitPrice");
     settings.Columns.Add("UnitsOnOrder");
