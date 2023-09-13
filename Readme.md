@@ -10,13 +10,15 @@ The [Html.AntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.
 
 ## Implementation Details
 
-In this example, the `Html.AntiForgeryToken` method is called in the [GridViewSettings.SetHeaderCaptionTemplateContent](https://docs.devexpress.com/AspNetMvc/DevExpress.Web.Mvc.GridViewSettings.SetHeaderCaptionTemplateContent(System.Action-DevExpress.Web.GridViewHeaderTemplateContainer-)) method handler.
+In this example, the `Html.AntiForgeryToken` method is called in the [SetHeaderCaptionTemplateContent](https://docs.devexpress.com/AspNetMvc/DevExpress.Web.Mvc.GridViewSettings.SetHeaderCaptionTemplateContent(System.Action-DevExpress.Web.GridViewHeaderTemplateContainer-)) method handler.
 
 ```scharp
-settings.CommandColumn.SetHeaderCaptionTemplateContent(c => {  
-    ViewContext.Writer.Write(Html.AntiForgeryToken().ToHtmlString());  
-    ViewContext.Writer.Write("#");  
-});  
+@Html.DevExpress().GridView(settings => {
+    // ...
+    settings.CommandColumn.SetHeaderCaptionTemplateContent(c => {  
+        ViewContext.Writer.Write(Html.AntiForgeryToken().ToHtmlString());  
+        ViewContext.Writer.Write("#");  
+    });  
 ```
 During CRUD operations, the grid send the token through a callback. To check the value on the server, decorate the action method with the [ValidateAntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.validateantiforgerytokenattribute) attribute.
 
