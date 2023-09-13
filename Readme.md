@@ -10,7 +10,7 @@ The [Html.AntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.
 
 ## Implementation Details
 
-In this example, the `Html.AntiForgeryToken` method is called in the [SetHeaderCaptionTemplateContent](https://docs.devexpress.com/AspNetMvc/DevExpress.Web.Mvc.GridViewSettings.SetHeaderCaptionTemplateContent(System.Action-DevExpress.Web.GridViewHeaderTemplateContainer-)) method handler.
+In this example, the `Html.AntiForgeryToken` method is called in a [SetHeaderCaptionTemplateContent](https://docs.devexpress.com/AspNetMvc/DevExpress.Web.Mvc.GridViewSettings.SetHeaderCaptionTemplateContent(System.Action-DevExpress.Web.GridViewHeaderTemplateContainer-)) method handler.
 
 ```scharp
 @Html.DevExpress().GridView(settings => {
@@ -20,15 +20,22 @@ In this example, the `Html.AntiForgeryToken` method is called in the [SetHeaderC
         ViewContext.Writer.Write("#");  
     });  
 ```
-During CRUD operations, the grid send the token through a callback. To check the value on the server, decorate the action method with the [ValidateAntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.validateantiforgerytokenattribute) attribute.
+During CRUD operations, the grid sends the token through a callback. To check the value on the server, decorate the action method with the [ValidateAntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.validateantiforgerytokenattribute) attribute.
 
-C#
+```scharp
 [ValidateAntiForgeryToken]  
-public ActionResult GridViewAddNewPartial(Product product) { ... }  
+public ActionResult GridViewAddNewPartial(Product product) {
+    // ...
+}  
 [ValidateAntiForgeryToken]  
-public ActionResult GridViewUpdatePartial(Product product) { ... }  
+public ActionResult GridViewUpdatePartial(Product product) {
+    // ...
+}  
 [ValidateAntiForgeryToken]  
-public ActionResult GridViewDeletePartial(int productID) { ... }  
+public ActionResult GridViewDeletePartial(int productID) {
+    // ...
+}  
+```
 
 ## Files to Review
 
