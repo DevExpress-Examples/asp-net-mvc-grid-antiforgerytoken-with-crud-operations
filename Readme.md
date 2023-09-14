@@ -43,5 +43,5 @@ public ActionResult GridViewDeletePartial(int productID) {
 * [GridViewPartial.cshtml](./CS/T292767/Views/Home/GridViewPartial.cshtml)
 
 ## More Examples 
-* [How to use AntiForgeryToken during DevExpress callbacks](https://github.com/DevExpress-Examples/how-to-use-antiforgerytoken-during-devexpress-callbacks-e5112)
+* [How to use AntiForgeryToken during DevExpress callbacks](https://github.com/DevExpress-Examples/asp-net-mvc-antiforgerytoken-during-devexpress-callbacks)
 
