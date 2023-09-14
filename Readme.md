@@ -1,23 +1,46 @@
 <!-- default badges list -->
-![](https://img.shields.io/endpoint?url=https://codecentral.devexpress.com/api/v1/VersionRange/128551914/18.2.4%2B)
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T292767)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-<!-- default file list -->
-*Files to look at*:
+
+# Grid for ASP.NET MVC - How to use AntiForgeryToken with CRUD operations
+
+The [Html.AntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.htmlhelper.antiforgerytoken) method generates a hidden form field (anti-forgery token) that can be validated when the form is submitted. Call this method inside a DevExpress callback-aware extension to automatically send the token value with an extension callback.
+
+## Implementation Details
+
+In this example, the `Html.AntiForgeryToken` method is called in a [SetHeaderCaptionTemplateContent](https://docs.devexpress.com/AspNetMvc/DevExpress.Web.Mvc.GridViewSettings.SetHeaderCaptionTemplateContent(System.Action-DevExpress.Web.GridViewHeaderTemplateContainer-)) method handler.
+
+```scharp
+@Html.DevExpress().GridView(settings => {
+    // ...
+    settings.CommandColumn.SetHeaderCaptionTemplateContent(c => {  
+        ViewContext.Writer.Write(Html.AntiForgeryToken().ToHtmlString());  
+        ViewContext.Writer.Write("#");  
+    });  
+```
+During CRUD operations, the grid sends the token with a callback. To check the value on the server, decorate the action method with the [ValidateAntiForgeryToken](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.validateantiforgerytokenattribute) attribute.
+
+```scharp
+[ValidateAntiForgeryToken]  
+public ActionResult GridViewAddNewPartial(Product product) {
+    // ...
+}  
+[ValidateAntiForgeryToken]  
+public ActionResult GridViewUpdatePartial(Product product) {
+    // ...
+}  
+[ValidateAntiForgeryToken]  
+public ActionResult GridViewDeletePartial(int productID) {
+    // ...
+}  
+```
+
+## Files to Review
 
 * [HomeController.cs](./CS/T292767/Controllers/HomeController.cs)
-* [NorthwindDataProvider.cs](./CS/T292767/Models/NorthwindDataProvider.cs)
-* [Product.cs](./CS/T292767/Models/Product.cs)
 * [GridViewPartial.cshtml](./CS/T292767/Views/Home/GridViewPartial.cshtml)
-* **[Index.cshtml](./CS/T292767/Views/Home/Index.cshtml)**
-<!-- default file list end -->
-# How to use AntiForgeryToken with GridView CRUD operations
 
+## More Examples 
+* [How to use AntiForgeryToken during DevExpress callbacks](https://github.com/DevExpress-Examples/how-to-use-antiforgerytoken-during-devexpress-callbacks-e5112)
 
-This example is an illustration of the <a href="https://www.devexpress.com/Support/Center/p/KA18920">KA18920: How to use AntiForgeryToken during DevExpress callbacks</a> KB Article. Refer to the Article for an explanation.
-
-<br/>
-
-Note that starting with v15.1, our callback-aware extensions automatically collect values of nested input elements and send them through a callback.
-So, it is no longer necessary to pass RequestVerificationToken as custom request data by handling the client-side BeginCallback event if AntiForgeryToken is rendered within extensions boundaries (for example, as a part of any template, etc.)
